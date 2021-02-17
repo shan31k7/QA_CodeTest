@@ -2,6 +2,7 @@ package utility;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
 public class ExtentReportWrapper {
@@ -22,4 +23,11 @@ public class ExtentReportWrapper {
 		extentTestStep = extentTest.createNode(testStepName);
 	}
 
+	public static void logExtentTestStep(Status status) {
+		extentTestStep.log(status, "");
+	}
+
+	public static void flush() {
+		extent.flush();
+	}
 }

@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="QA_CodeTest">
+	<test name="QA_CodeTest">
+		<classes>
+			<class name="testNG_tests.SmokeTest" />
+		</classes>
+	</test>
+</suite>

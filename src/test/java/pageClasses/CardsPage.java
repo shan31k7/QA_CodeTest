@@ -7,7 +7,13 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class DBS_CardsPage {
+import utility.TestConfiguration;
+
+/*
+ * Page Object class for DBS cards page
+ * @author - kesavan
+ */
+public class CardsPage {
 	WebDriver driver;
 
 	@FindBy(linkText = "Credit Cards")
@@ -25,7 +31,7 @@ public class DBS_CardsPage {
 	@FindBy(xpath = "//h4[text()='Useful Links']")
 	WebElement usefulLinks;
 
-	public DBS_CardsPage(WebDriver driver) {
+	public CardsPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 
@@ -57,7 +63,15 @@ public class DBS_CardsPage {
 		compareButton.click();
 	}
 
-	public boolean verifyTextPresent(String searchText) {
+	public boolean verifyCard1details() {
+		String searchText = TestConfiguration.contentRepo.getProperty("FirstCardName");
+		String dynamicXpath = "//*[contains(text(),\"" + searchText + "\")]";
+		System.out.println("Dynamic xpath: " + dynamicXpath);
+		return driver.findElements(By.xpath(dynamicXpath)).size() > 0;
+	}
+	
+	public boolean verifyCard2details() {
+		String searchText = TestConfiguration.contentRepo.getProperty("LastCardName");
 		String dynamicXpath = "//*[contains(text(),\"" + searchText + "\")]";
 		System.out.println("Dynamic xpath: " + dynamicXpath);
 		return driver.findElements(By.xpath(dynamicXpath)).size() > 0;

@@ -18,7 +18,7 @@ public class TestConfiguration {
 	public TestConfiguration() {
 	}
 
-	public static void setConfiguration() {
+	public static void initializeConfiguration() {
 
 		try {
 			// Load the Environment variables
@@ -34,6 +34,14 @@ public class TestConfiguration {
 			logger.log(Level.SEVERE, "\"Something went wrong\"");
 		}
 
+	}
+
+	public static String getBrowserName() {
+		return environmentProperties.getProperty("browser");
+	}
+
+	public static String getUrl() {
+		return environmentProperties.getProperty("url");
 	}
 
 }

@@ -20,10 +20,10 @@ public class CompareCardsTest extends BaseTest {
 		cardsPage.clickCompare();
 
 		// Assert Card 1 details
-		Assert.assertTrue(cardsPage.verifyCard1details(), "First card details are missing");
+		Assert.assertTrue(cardsPage.isCard1Exists(), "First card details are missing");
 
 		// Assert Card 2 details
-		Assert.assertTrue(cardsPage.verifyCard2details(), "Last card details are missing");
+		Assert.assertTrue(cardsPage.isCard2Exists(), "Last card details are missing");
 	}
 
 	

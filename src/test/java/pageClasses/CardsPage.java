@@ -9,7 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utility.TestConfiguration;
 
 /*
  * Page Object class for DBS cards page
@@ -18,6 +17,7 @@ import utility.TestConfiguration;
 public class CardsPage {
 	WebDriver driver;
 	Logger logger = Logger.getLogger(CardsPage.class.getName());
+	String storedFirstCardName, storedLastCardName;
 
 	@FindBy(linkText = "Credit Cards")
 	WebElement creditCardsHyperlink;
@@ -33,6 +33,12 @@ public class CardsPage {
 
 	@FindBy(xpath = "//h4[text()='Useful Links']")
 	WebElement usefulLinks;
+
+	@FindBy(xpath = "(//img[@class='cardcontainer-img'])[1]/following-sibling::div/div")
+	WebElement firstCardName;
+
+	@FindBy(xpath = "(//img[@class='cardcontainer-img'])[last()]/following-sibling::div/div")
+	WebElement lastCardName;
 
 	public CardsPage(WebDriver driver) {
 		this.driver = driver;
@@ -53,12 +59,15 @@ public class CardsPage {
 	}
 
 	public void clickFirstCompareCheckBox() {
+		storedFirstCardName = firstCardName.getText();
 		firstCompareCheckBox.click();
 	}
 
 	public void clickLastCompareCheckBox() {
 		Actions actions = new Actions(driver);
 		actions.moveToElement(usefulLinks).build().perform();
+		
+		storedLastCardName = lastCardName.getText();
 		lastCompareCheckBox.click();
 	}
 
@@ -66,17 +75,19 @@ public class CardsPage {
 		compareButton.click();
 	}
 
-	public boolean verifyCard1details() {
-		String searchText = TestConfiguration.contentRepo.getProperty("FirstCardName");
-		String dynamicXpath = "//*[contains(text(),\"" + searchText + "\")]";
+	public boolean isCard1Exists() {
+		return verifyCardExists(storedFirstCardName);
+	}
+
+	public boolean isCard2Exists() {
+		return verifyCardExists(storedLastCardName);
+	}
+
+	public boolean verifyCardExists(String cardName) {
+		// String searchText = TestConfiguration.contentRepo.getProperty(cardName);
+		String dynamicXpath = "//*[contains(text(),\"" + cardName + "\")]";
 		logger.log(Level.INFO, "Dynamic xpath: " + dynamicXpath);
 		return driver.findElements(By.xpath(dynamicXpath)).size() > 0;
 	}
 
-	public boolean verifyCard2details() {
-		String searchText = TestConfiguration.contentRepo.getProperty("LastCardName");
-		String dynamicXpath = "//*[contains(text(),\"" + searchText + "\")]";
-		logger.log(Level.INFO, "Dynamic xpath: " + dynamicXpath);
-		return driver.findElements(By.xpath(dynamicXpath)).size() > 0;
-	}
 }

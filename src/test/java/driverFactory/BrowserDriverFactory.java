@@ -17,8 +17,8 @@ public class BrowserDriverFactory {
 	public static WebDriver getDriver() {
 		logger = Logger.getLogger(BrowserDriverFactory.class.getName());
 
-		TestConfiguration.setConfiguration();
-		String browser = TestConfiguration.environmentProperties.getProperty("browser");
+		TestConfiguration.initializeConfiguration();
+		String browser = TestConfiguration.getBrowserName();
 
 		if (browser.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup(); // chrome

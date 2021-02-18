@@ -24,7 +24,7 @@ public class BaseTest {
 	}
 
 	private void openApplication() {
-		driver.get(TestConfiguration.environmentProperties.getProperty("QA_App_URL"));
+		driver.get(TestConfiguration.getUrl());
 
 	}
 

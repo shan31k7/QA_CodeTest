@@ -2,7 +2,8 @@
 <suite name="QA_CodeTest">
 	<test name="QA_CodeTest">
 		<classes>
-			<class name="testNG_tests.SmokeTest" />
+			<class name="testNG_tests.BaseTest" />
+			<class name="testNG_tests.CompareCardsTest" />
 		</classes>
 	</test>
 </suite>

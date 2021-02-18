@@ -1,12 +1,14 @@
 package pageClasses;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import utility.TestConfiguration;
 
 /*
@@ -15,6 +17,7 @@ import utility.TestConfiguration;
  */
 public class CardsPage {
 	WebDriver driver;
+	Logger logger = Logger.getLogger(CardsPage.class.getName());
 
 	@FindBy(linkText = "Credit Cards")
 	WebElement creditCardsHyperlink;
@@ -38,7 +41,7 @@ public class CardsPage {
 	}
 
 	public boolean isValid_PageTitle(String expectedText) {
-		System.out.println(driver.getTitle());
+		logger.log(Level.INFO, driver.getTitle());
 		if (driver.getTitle().equalsIgnoreCase(expectedText))
 			return true;
 		else
@@ -66,14 +69,14 @@ public class CardsPage {
 	public boolean verifyCard1details() {
 		String searchText = TestConfiguration.contentRepo.getProperty("FirstCardName");
 		String dynamicXpath = "//*[contains(text(),\"" + searchText + "\")]";
-		System.out.println("Dynamic xpath: " + dynamicXpath);
+		logger.log(Level.INFO, "Dynamic xpath: " + dynamicXpath);
 		return driver.findElements(By.xpath(dynamicXpath)).size() > 0;
 	}
-	
+
 	public boolean verifyCard2details() {
 		String searchText = TestConfiguration.contentRepo.getProperty("LastCardName");
 		String dynamicXpath = "//*[contains(text(),\"" + searchText + "\")]";
-		System.out.println("Dynamic xpath: " + dynamicXpath);
+		logger.log(Level.INFO, "Dynamic xpath: " + dynamicXpath);
 		return driver.findElements(By.xpath(dynamicXpath)).size() > 0;
 	}
 }

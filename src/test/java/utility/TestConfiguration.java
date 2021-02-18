@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TestConfiguration {
+	public static Logger logger = Logger.getLogger(TestConfiguration.class.getName());
 	public static Properties environmentProperties, contentRepo;
 	static final String ENVIRONMENT_PROPERTIES_PATH = System.getProperty("user.dir")
 			+ "/src/test/resources/EnvironmentVariables.properties";
@@ -26,9 +29,9 @@ public class TestConfiguration {
 			contentRepo = new Properties();
 			contentRepo.load(new FileReader(new File(CONTENT_REPO_PATH)));
 		} catch (FileNotFoundException f) {
-			System.out.println("Problem occured while reading the properties files");
+			logger.log(Level.SEVERE, "Problem occured while reading the properties files");
 		} catch (Exception e) {
-			System.out.println("Something went wrong");
+			logger.log(Level.SEVERE, "\"Something went wrong\"");
 		}
 
 	}
